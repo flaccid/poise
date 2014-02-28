@@ -45,13 +45,13 @@ module Poise
             end
 
             # Template source path if using a template
-            attribute("#{name_prefix}source", kind_of: String)
+            attribute("#{name_prefix}source", kind_of => String)
             define_method("_#{name_prefix}source") do
               send("#{name_prefix}source") || maybe_eval(options[:default_source])
             end
 
             # Template cookbook name if using a template
-            attribute("#{name_prefix}cookbook", kind_of: [String, Symbol], default: lazy do
+            attribute("#{name_prefix}cookbook", kind_of => [String, Symbol], default: lazy do
               if send("#{name_prefix}source")
                 cookbook_name
               elsif options[:default_cookbook]
@@ -62,12 +62,12 @@ module Poise
             end)
 
             # Template variables if using a template
-            attribute("#{name_prefix}options", option_collector: true)
+            attribute("#{name_prefix}options", option_collector => true)
 
             # The big one, get/set content, but if you are getting and no
             # explicit content was given, try to render the template
             define_method("#{name_prefix}content") do |arg=nil, no_compute=false|
-              ret = set_or_return("#{name_prefix}content", arg, kind_of: String)
+              ret = set_or_return("#{name_prefix}content", arg, kind_of => String)
               if !ret && !arg && !no_compute
                 # Some caching might be good here, but leaving that for another day
                 ret = send("_#{name_prefix}content")
