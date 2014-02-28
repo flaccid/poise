@@ -37,7 +37,7 @@ module Poise
 
         def attribute(name, opts)
           # Ruby 1.8 can go to hell
-          define_method(name) do |arg=nil|
+          define_method(name) do |arg|
             set_or_return(name, arg, opts)
           end
         end
